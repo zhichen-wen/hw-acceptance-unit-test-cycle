@@ -12,6 +12,18 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
+      
+    when /^the home page$/ 
+      movies_path
+    when /^the edit page for "(.+)"$/
+      movie_id = Movie.where(title: $1).first.id
+      edit_movie_path(movie_id)
+    when /^the details page for "(.+)"$/
+      movie = Movie.where(title: $1).first
+      movie_path(movie)
+    when /^the Similar Movies page for "(.+)"/
+      movie_id = Movie.where(title: $1).first.id
+      find_similar_movies_path(movie_id)
 
     when /^the (RottenPotatoes )?home\s?page$/ then '/movies'
 
